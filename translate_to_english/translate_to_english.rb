@@ -1,10 +1,7 @@
-FOLDER_PATH = '/home/wgbl/Sangmesh_assignment/sanga'
-OP_FOLDER_PATH = '/home/wgbl/Sangmesh_assignment/converted_file'
 GLOSARY_FILE = "glosary.txt"
 class TranslateToEnglish
   def initialize
     @input_file
-    @text_file
     @out_file
     @new_file
     @folder_path
@@ -23,7 +20,7 @@ class TranslateToEnglish
   end
 
   def self.create_file(ext)
-      @text_file = File.new("#{@input_file}")
+      text_file = File.new(@input_file)
       @new_file = File.basename(@input_file)
       @out_file = File.new("#{OP_FOLDER_PATH}/#{@new_file}", "w+")
   end
@@ -78,21 +75,7 @@ class TranslateToEnglish
     @out_file.close
   end
 
-  def self.last_word_correction(line)
-    word_array = line.split(' ')
-    word_array.each do |word|
-      if word[-1,1] == 'a'
-        word1 = word.chop
-        line.sub! word, word1
-      elsif word[-1,1] == "," && word[-2,1] == "a"
-        puts "yetay ithe"
-        word1 = word.gsub("a," , ",")
-        line.sub! word, word1
-        puts word1
-      end
-    end
-    line
-  end
+
 
   def self.remove_character(line)
     word_array = line.split(' ')
