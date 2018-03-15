@@ -9,16 +9,16 @@ class TranslateToEnglish
   end
 
 
-  def self.do_conversion
-    Dir.foreach(FOLDER_PATH) do |filename|
-      ext = File.extname(filename)
-      next if filename == '.' || filename == '..'
-      TranslateToEnglish.create_file(ext,filename)
-      TranslateToEnglish.file_transfer(@text_file,@out_file)
-      TranslateToEnglish.close_operation
-    end
-    puts "completed"
-  end
+  # def self.do_conversion
+  #   Dir.foreach(FOLDER_PATH) do |filename|
+  #     ext = File.extname(filename)
+  #     next if filename == '.' || filename == '..'
+  #     TranslateToEnglish.create_file(ext,filename)
+  #     TranslateToEnglish.file_transfer(@text_file,@out_file)
+  #     TranslateToEnglish.close_operation
+  #   end
+  #   puts "completed"
+  # end
 
   def create_file(ext)
     @text_file = File.new(@input_file)
@@ -29,9 +29,8 @@ class TranslateToEnglish
   def file_transfer(text_file,out_file)
     line_converted = ""
     text_file.each_line do |line|
-      line_object = LineChanges.new(line)
-      line_converted = line_object.last_word_correction
-      line_converted = line_object.line_replace_with
+      line_modifier = LineModifier.new(line)
+      line_converted = line_modifier.line_operations
       out_file.puts (line_converted)
     end
   end
